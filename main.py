@@ -26,6 +26,8 @@ prompt = """
 6. 종료
 Enter number :
 """
+
+# 2중 배열 사용
 number = 0
 while number != 6:
     print(prompt)
@@ -49,15 +51,85 @@ while number != 6:
 # [수업]
 
 
-# 2단부터 9단 까지 출력
+# 정 삼각형 역 방향 그리기
+'''
+size = int(input("크기 :"))
+for i in range(size):
+'''
 
+# 정 삼각형 그리기
+'''
+size = int(input("숫자를 입력하세요 : "))
+for i in range(size):
+    print((' ' * (size - i)) + ('*' * (i * 2 + 1)))
+'''
+
+# 직 삼각형 그리기
+# [내가 한 것]
+'''
+number = int(input("크기 입력 :"))
+
+for j in range(0, number):
+    for i in range(0, number):
+        if j >= i:
+            print("*", end=" ")
+    print(" ")
+'''
+# [강사님께서 한 것]
+'''
+size = int(input("size :"))
+for i in range(1, size + 1):  # 줄수
+    for j in range(0, i):  # i번 줄에 출력될 *갯수
+        print("*", end="")
+    print()
+'''
+# 직 삼각형 그리기 역 방향
+# [내가 한 것]
+'''
+numberR = int(input("크기 입력 :"))
+
+for jR in range(0, numberR):
+    for iR in range(0, jR):
+        sum = iR + jR
+        if sum >= iR:
+            print("*", end=" ")
+        else:
+            print(" ", end="")
+    print(" ")
+'''
+# 위 아래 비교해서 뭐가 아닌지 구분하기.
+'''
+number = int(input("숫자를 입력하세요 : "))
+for i in range(number):
+    for j in range(number):
+        sum = i + j
+        if sum < number - 1:
+            print(" ", end=" ")
+        else:
+            print("*", end=" ")
+    print(" ")
+'''
+# [강사님께서 한 것]
+# TODO : 이해해서 사용해보기
+'''
+size = int(input("size:"))
+for i in range(1, size + 1):  # 줄수
+    ch = " "
+    for j in range(size, 0, -1):  # i번 줄에 출력된 캐릭터 개수
+        if j == i:  # 출력할 캐릭터가 *로 바뀌는 시점
+            ch = "*"
+        print(ch, end="")
+    print()
+'''
+# 2단부터 9단 까지 출력
+'''
 dan = 2
 i = 1
 for i in range(1, 10):
     for dan in range(1, 10):
         print(dan, "*", i, "=", dan * i, end="\t")
     print()
-
+'''
 '''
 number = int(input("크기 입력:"))
 
