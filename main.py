@@ -1,5 +1,10 @@
 # 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
-
+# git :
+'''
+ git add -A
+ git commit -m "수정 한 내용"
+ git push -f origin master
+'''
 # 2020년 11월 4일
 # [과제]
 # 1. 주소록 만들기
@@ -10,8 +15,6 @@
 # 4. 삭제 (이름)
 # 5. 전체 출력
 # 6. 종료
-
-
 '''
 list = []
 prompt = """
@@ -29,7 +32,11 @@ while number != 6:
     number = int(input())
 
     if number == 1:
-        print()
+        print("[추가]")
+        name = input("이름 :")
+        phoneNum = int(input("전화번호 :"))
+        address = input("주소 :")
+
     elif number == 2:
         print()
     elif number == 3:
@@ -41,7 +48,51 @@ while number != 6:
 '''
 # [수업]
 
+
+# 2단부터 9단 까지 출력
+
+dan = 2
+i = 1
+for i in range(1, 10):
+    for dan in range(1, 10):
+        print(dan, "*", i, "=", dan * i, end="\t")
+    print()
+
+'''
+number = int(input("크기 입력:"))
+
+for j in range(0, number):
+    for i in range(0, number):
+        if i > j:
+            print("*", end="")
+    print()
+'''
+
+# 약수 출력
+'''
+num = int(input("num:"))
+for i in range(1, num + 1):
+    if num % i == 0:
+        print(i, end=" ")
+print()
+'''
+
+# 3단 출력 for, range() 사용
+# [내가 한 것]
+'''
+dan = int(input("단 :"))
+
+for i in range(1, 10):
+    print(dan, "*", i, "=", dan * i)
+'''
+# [강사님께서 한 것]
+'''
+dan = 3
+for o in range(1, 10):
+    print(dan, "*", o, "=", dan * o)    
+'''
 # 변수 선언 안해줘도 됨
+'''
 for i in range(1, 5):
     print(i, end="")
 print()
@@ -54,8 +105,7 @@ print()
 for i in range(1, 10, 4): # 4씩 더해서 출력
     print(i, end="")
 print()
-
-
+'''
 
 # 리스트 숫자의 합을 구함
 '''
@@ -264,24 +314,34 @@ while dan < 10:
 '''
 # 3. 1~100사이의 소수(솟수 : 약수가 1과 자기자신만 있는 수) 출력
 # [내 코드]
+# TODO : 다시 구현하기.
 '''
-i = 2  # 나눌 수
+j=0
 check = True
+number = int(input("단 :"))
 
-    while j <= number:
-        if i >= j:
-while i <= 100:
-    count = 0  # 약수 확인 변수
-    number = 1  # 숫자 증가 변수
-    while number <= i:
-        if i % number == 0:  # 만약 나누어 진다면, 약수로 판별
-            count += 1
-        number += 1  # 숫자 증가
+while j <= number:
+    i = 2  # 나눌 수
+    if i >= j:
+        while i <= 100:
+            count = 0  # 약수 확인 변수
+        number = 1  # 숫자 증가 변수
+        while number <= i:
+             if i % number == 0:  # 만약 나누어 진다면, 약수로 판별
+                 count += 1
+                 number += 1  # 숫자 증가
     if count == 2:  # 약수의 갯수 2개 즉 솟수면 출력
         print(i, end=" ")
     i += 1
-    '''
+'''
 # [강사님 코드]
+'''
+num = int(input("num:"))
+for i in range(1, num + 1):
+    if num % i == 0:
+        print(i, end=" ")
+print()
+'''
 
 # 4. 삼각형1 (크기입력받음)
 '''
