@@ -15,6 +15,12 @@
 # 4. 삭제 (이름)
 # 5. 전체 출력
 # 6. 종료
+
+# 2. 피보나치 수열 100개 출력 (피보나치 수열 이란? : 앞수와 더해서 결과값이 나오게 할 것. Ex)1, 1, 2, 3, 5, 8, 13... )
+
+
+# 주소록 구현
+# [내가한 것]
 '''
 list = []
 prompt = """
@@ -26,31 +32,142 @@ prompt = """
 6. 종료
 Enter number :
 """
-
 # 2중 배열 사용
+userList = []
 number = 0
 while number != 6:
     print(prompt)
     number = int(input())
 
+    # 예시 : list = [[이름,번호,주소],[이름,번호,주소]]
     if number == 1:
         print("[추가]")
         name = input("이름 :")
         phoneNum = int(input("전화번호 :"))
         address = input("주소 :")
 
+        userInfo = [name, phoneNum, address]
+        print(userInfo)
+
+        userList.append(userInfo)
     elif number == 2:
-        print()
+        print("검색 입력")
+        choice = int(input("검색할 사람의 성함을 입력해주세요 :"))
+        # TODO : 리스트에서 찾으면 검색한 사람의 인포메이션이 나올 수 있도록 없으면, 해당 사람이 없습니다 메세지 띄울것
     elif number == 3:
-        print()
+        print("수정 입력")
+        choice = int(input("수정할 목록을 선택해주세요 :"))
+        # TODO : enumerate 사용해서 목록 보여줄 수 있도록 하기.
     elif number == 4:
-        print()
+        print("삭제 입력")
+        choice = int(input("삭제할 목록을 선택해주세요 :"))
+        # TODO : enumerate 사용해서 목록 보여줄 수 있도록 하기.
     elif number == 5:
-        print()
+        print("전체출력 입력")
+        print(userList)
+'''
+# [강사님께서 구현한 것]
+'''
+num = []  # 빈 리스트 생성
+flag = True
+while flag:
+    menu = input("1.추가 2.검색 3.수정 4.삭제 5.전체출력 6.종료")
+    if menu == "1":
+        print("추가선택")
+        x = int(input("숫자입력:"))
+        num.append(x)  # 끝에 추가하는 메서드이다.
+    elif menu == "2":
+        print("검색선택")
+    elif menu == "3":
+        print("수정선택")
+    elif menu == "4":
+        print("삭제선택")
+    elif menu == "5":
+        print("전체출력선택")
+        print(num)
+    elif menu == "6":
+        print("종료선택")
+        flag = False
+    else:
+        print("잘못된 메뉴")
 '''
 # [수업]
 
+# break 예문
+# 점수를 입력 받는데 0~100 이 범위를 벗어나면 다시 입력받음.
+'''
+score = -1
+while 100 < score or score < 0:
+    score = int(input('score : '))
+print(score)
+'''
+'''
+while True:  # 무한루프 레이블 만드는법 알아보기. 시간되면
+    score = int(input('score : '))
+    if 0 <= score <= 100:
+        break
+print(score)
+'''
 
+# continue : 루프진행
+'''
+for i in range(1, 11):  # 1,2,3,4,5,6,7,8,9,10
+    if i % 2 == 1:  # 2로 나눈 나머지가 1 즉 홀수 이면,
+        continue  # continue 를 실행. continue 를 만나면 처음 loop 로 진행한다. 즉 무시한다.
+    print(i, end=", ")
+    # 즉, 짝수 출력하는 코드가 됨.
+'''
+# 주소록 만들기
+# [강사님께서 구현한 것]
+'''
+num = []  # 빈 리스트 생성
+flag = True
+while flag:
+    menu = input("1.추가 2.검색 3.수정 4.삭제 5.전체출력 6.종료")
+    if menu == "1":
+        print("추가선택")
+        x = int(input("숫자입력:"))
+        num.append(x)  # 끝에 추가하는 메서드이다.
+    elif menu == "2":
+        print("검색선택")
+    elif menu == "3":
+        print("수정선택")
+    elif menu == "4":
+        print("삭제선택")
+    elif menu == "5":
+        print("전체출력선택")
+        print(num)
+    elif menu == "6":
+        print("종료선택")
+        flag = False
+    else:
+        print("잘못된 메뉴")
+'''
+
+# 강사님 말씀
+# 반복문의 활용도와 차이점
+# for : 리스트, 문자열, 나열된 값들을 처리할 때 활용
+# while : 조건에 의해서 반복하고자 할떄
+
+'''
+# 마지막 쉼표 없애기
+data = [12, 45, 56, 67]
+for i in data:
+    print(i, end=", ")
+print()
+
+for index, i in enumerate(data):  # 변수를 2개(앞이 인덱스, 뒤에는 값) 넣어서 인덱스와 요소를 함께 추출한다.
+    print("data[", i, "]", "index:", index)
+print()
+
+# [강사님께서 구현한 코드]
+ch = ", "
+for index, i in enumerate(data):
+    if index == len(data) - 1:  # 인덱스가 마지막 이면, -1 해준 이유는 리스트는 0부터 출력되기떄문,
+        ch = "\n"  # 줄을 그냥 바뀌줌
+    print(i, end=ch)
+print()
+'''
 # 정 삼각형 역 방향 그리기
 '''
 size = int(input("크기 :"))
