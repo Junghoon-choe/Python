@@ -1,11 +1,295 @@
 # 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
+# 최종으로 어떤 프로젝트 진행 할 지 고민해보기.
 # git :
 '''
  git add -A
  git commit -m "수정 한 내용"
  git push -f origin master
 '''
-# 2020년 11월 4일
+# 2020년 11월 5일
+# [과제]
+# [수업]
+
+
+# TODO : [복습] 2020년 11월 4일 - list
+# [과제]
+# [수업]
+# list 관련
+# [3교시]
+'''
+n = list()  # 리스트를 변수에 넣어서 초기화 해주는 방식. [추가해주면서 만드는 방식]
+for i in range(0, 10):
+    n.append(int(input("num:")))
+
+for i in n:
+    print(i, end=", ")
+
+# 리스트 요소의 합과 평균, 최대값, 최소값 출력
+sum = 0
+for i in n:
+    sum += i  # 합 계산
+print()
+
+f = sum / len(n)  # 평균 계산 길이로 나눠줌.
+
+m1 = m2 = n[0]  # m1 : 최대 값 m2 : 최소 값 제일 오른쪽에서 부터 할당해줌.
+for i in n:  # >> n을 참조한다.
+    if m1 < i:
+        m1 = i
+    elif m2 > i:
+        m2 = i
+print("-----------------------")
+print("최대 값 :", m1, "최소 값 :", m2, "평균 값 :", f, "총 합 :", sum)
+print("-----------------------")
+
+# TODO : [중요][이해][복습] bubble sort 알고리즘
+# 숫자 정렬하는 법 TODO : [중요] 정보처리 기사 예제 문제 1월 신청
+# 버블 알고리즘 = 두개씩 비교해서 작은 수를 앞으로 바꿔줌,
+# a[0] a[1] 두개를 바꿔 줌
+# a[0] = a[1] 해주면 0의 자리가 없어짐 그래서 변수를 선언해서 미리 빼어줌 tmp = a[0] << 이런식으로 한다른 a[1] = tmp 방식으로 2중루프를 만들어서 해줌.
+print("bubbling sort")
+for i in range(0, len(n) - 1):  # 0부터 리스트 n의 길이 까지 반복,
+    for j in range(0, len(n) - 1 - i):  # 0부터 리스트 n의 길이 - i 번 까지 반복, 횟수 만큼
+        if n[j] > n[j + 1]:
+            # 스왑하는 부분
+            tmp = n[j]
+            n[j] = n[j + 1]
+            n[j + 1] = tmp
+print(n)
+print("-----------------------")
+# TODO : [중요][이해][복습] insert sort 알고리즘
+# insert 는 앞에꺼랑 만 비교함.
+# temp 변수 리스트 하나하나씩 값을 먼저 넣고 숫자가 기존에 있는 넣는 리스트에 값보다 크면, 그 앞에 추가함.
+# 값이 입력된 리스트에 [2,3,5,5,3] 맨 처음의 값은 고정 시켜두고 j i 변수를 지정해줘서 temp 변수에 넣어줄 값을 리스트에서 찾아 선언해줌.
+# j는 뒤로 밀려나면서 1씩 증가하되 리스트의 크기까지만., 또, 항상 i 변수의 참조되는 리스트 요소의 앞에 참조 되어야함 즉, i-1이 되어야한다.
+
+# insert sort
+print("inserting sort")
+for i in range(i, len(n)):  # for 문으로 리스트의 길이만큼 반복시작. [자기 자릴 찾을 값의 위치]
+    tmp = n[i]  # 리스트의 맨 첫째 자리를 tmp 변수에 저장한다. [i 위치의 값이 지워지지 않게 tmp 옮겨놓음]
+    j = i - 1  # [j는 i의 앞 위치로 i값의 위치를 찾기위해 비교할 대상의 위치를 선언해 준다.]
+    while j >= 0 and n[j] > tmp:  # []
+        n[j + 1] = n[j]  # [j 위치의 값을 뒤로 한칸 이동]
+        j -= 1  # [j를 한칸 앞으로 이동]
+    j += 1
+    n[j] = tmp
+print(n)
+# TODO : 보드판에 써 가면서 이해 연습하기.
+'''
+print("-----------------------")
+# 선택정렬은 리스트 안에 있는 모든 값들을 비교해서 가장 작은 값을 가장 맨앞으로 넣어줌.
+print("selecting sort")
+
+list = [5, 2, 4, 3, 1, 234, 23, 4, 1]
+for selectNum in range(0, len(list) - 1):
+    minNum = selectNum
+    for nextNum in range(selectNum + 1, len(list)):
+        if list[nextNum] < list[minNum]:
+            minNum = nextNum
+        list[selectNum], list[minNum] = list[minNum], list[selectNum]
+print(list)
+
+# 참조 : https://www.daleseo.com/sort-insertion/
+'''
+arr = [1, 2, 3, 4, 5,23,45,654,24,23,2,3]
+
+
+def insertion_sort1(arr):
+    for end in range(1, len(arr)):
+        for i in range(end, 0, -1):
+            if arr[i - 1] > arr[i]:
+                arr[i - 1], arr[i] = arr[i], arr[i - 1]
+
+
+def insertion_sort2(arr):
+    for end in range(1, len(arr)):
+        i = end
+        while i > 0 and arr[i - 1] > arr[i]:
+            arr[i - 1], arr[i] = arr[i], arr[i - 1]
+            i -= 1
+
+
+def insertion_sort3(arr):
+    for end in range(1, len(arr)):
+        to_insert = arr[end]
+        i = end
+        while i > 0 and arr[i - 1] > to_insert:
+            arr[i] = arr[i - 1]
+            i -= 1
+        arr[i] = to_insert
+
+print(insertion_sort1())
+print(insertion_sort2())
+print(insertion_sort3())
+'''
+'''
+temp = n[0]
+n[0] = n[1]
+n[1] = temp
+'''
+'''
+while len(n):
+    temp = n[0]
+    if n[0] < n[1]:
+        n[0] = n[1]
+    elif n[0] > n[1]:
+        continue
+'''
+'''
+# 첫번쨰 for문 = 리스트의 길이 만큼
+for i in n:  #
+    temp = n[i]
+    if n[i] < n[i + 1]:
+        n[i] = n[i + 1]
+    elif n[i] > n[i + 1]:
+        continue
+'''
+# [2교시]
+'''
+# 리스트 초기화
+aa = [0] * 10  # 0을 100개로 초기화 해준다
+print(aa)
+print("-------")
+aa[0] = 10
+print(aa)
+print("-------")
+aa = [0] * 10  # 0을 100개로 초기화 해준다
+print(aa)
+print("-------")
+a = "asd"
+aa[0] = a  # TODO : 이슈 질문하기.
+aa[1] = 10
+aa[2] = 12.3
+aa[3] = 's'
+aa[4] = True
+print(type(aa[0]))
+print(type(aa[1]))
+print(type(aa[2]))
+print(type(aa[3]))
+print(type(aa[4]))
+
+# 숫자10개를 리스트에 담아서 출력
+firstList = []
+firstList.append(1)
+firstList.append(2)
+firstList.append(3)
+firstList.append(4)
+firstList.append(5)
+firstList.append(6)
+firstList.append(7)
+firstList.append(8)
+firstList.append(9)
+firstList.append(10)
+print(firstList)
+
+secondList = [0] * 10
+for i in range(1, 11):
+    secondList[0] = i
+print(secondList)
+
+nums = [0] * 10  # 먼저 리스트에 0을 10개 넣어줘서 초기화 시켜주는 방식 [인덱스를 바꿔주는 방식]
+for i in range(0, 10):
+    nums[i] = int(input("num:"))
+for i in nums:
+    print(i, end=", ")
+print()
+print("-----------")
+
+n = list()  # 리스트를 변수에 넣어서 초기화 해주는 방식. [추가해주면서 만드는 방식]
+for i in range(0, 10):
+    n.append(int(input("num:")))
+
+for i in n:
+    print(i, end=", ")
+
+# 리스트 요소의 합과 평균, 최대값, 최소값 출력
+sum = 0
+for i in n:
+    sum += i  # 합 계산
+print()
+
+f = sum / len(n)  # 평균 계산 길이로 나눠줌.
+
+m1 = m2 = n[0]  # m1 : 최대 값 m2 : 최소 값 제일 오른쪽에서 부터 할당해줌.
+for i in n: # >> n을 참조한다.
+    if m1 < i:
+        m1 = i
+    elif m2 > i:
+        m2 = i
+print("-----------------------")
+print("최대 값 :", m1, "최소 값 :", m2, "평균 값 :", f, "총 합 :", sum)
+
+# 숫자 정렬하는 법 TODO : [중요] 정보처리 기사 예제 문제 버블 알고리즘. 3월
+# 버블 알고리즘 = 두개씩 비교해서 작은 수를 앞으로 바꿔줌,
+# a[0] a[1] 두개를 바꿔 줌
+# a[0] = a[1] 해주면 0의 자리가 없어짐 그래서 변수를 선언해서 미리 빼어줌 tmp = a[0] << 이런식으로 한다른 a[1] = tmp 방식으로 2중루프를 만들어서 해줌.
+'''
+
+# [1교시]
+'''
+
+a1 = [1, 2, 3]
+print(a1[0])
+
+a1[0] = 100
+print(a1[0])
+
+a2 = []
+# a2[0]=10 # >> 방이 비어있으면 에러 발생,
+a2.append(10)  # >> 리스트 뒤에 방을 생성하는 메서드인 append를 사용
+print(a2[0])
+
+a2[0] = "s"  # >> 문자로 변환 가능
+print(a2[0])
+
+print("-----")
+x1 = list()  # 빈리스트를 생성해서 반환
+x2 = list(a1)  # 다른 리스트를 복해서 생성
+print(x1)
+print(x2)
+
+print("-----")
+# 복사를 해서 사용한 방법이 원래의 리스트에 영향을 주나 시험, 이해 할 것.
+x2[0] = 123
+print(a1)
+print(x2)
+
+# 추가 실험 내용
+print("-----")
+x3 = x2  # 여기에서 변수로 선언을 해줘서 밑에서 x3[0]을 345로 바꿔주면 x2도 같이 바뀐다.
+print(x2)
+print(x3)
+
+x3[0] = 345
+print(x2)
+print(x3)
+
+print("-----")
+x4 = list(x3)
+x4[0] = 1000
+print(x3)
+print(x4)
+
+print("-----")
+x5 = x4
+x5[0] = 1000
+print(x4)
+print(x5)
+
+# TODO : 위의 list 활용법 알아두기.
+
+# TODO : [중요] 리스트 이름 : 시작주소
+
+# 파이선에서 list 는 타입 상관 없이 넣을 수 있다.
+# 관련 주소값으로 찾아갈 수 있도록
+# 파이썬에서 list에 입력되는 값은 참조형 이다. 즉 b = ['abc'] 이면 ,, abc는 어딘가에 저장이 되어있고 b는 참조하는 형태를 갖고 있어서
+# 문자나 숫자 등 섞여서 저장이 가능 한 것이다.
+
+textList = [1, "안녕하세요", 'a', 3.14]
+print(list)
+'''
+
+# TODO : [복습] 2020년 11월 3일 - For 문
 # [과제]
 # 1. 주소록 만들기
 # 내용 : 이름 전화번호 주소
@@ -17,9 +301,52 @@
 # 6. 종료
 
 # 2. 피보나치 수열 100개 출력 (피보나치 수열 이란? : 앞수와 더해서 결과값이 나오게 할 것. Ex)1, 1, 2, 3, 5, 8, 13... )
+# 1+1=2 1+2=3 이런식으로 배치하면 손쉽게 생각 해 볼 수있다.
+# 인덱스를 활용, >> 인덱스로 1+1=2
+# 답변수에 2를 추가.
+# 첫째와 두번째 변수 생성해서
+# 두번째 변수에 답을 넣어줌.
+# 답만 넣을 리스트 생성. 2,3,5,8 << 이런식으로 들어갈 수 있도록
+# 그 후에 답이 들어있는 리스트에서의 인덱스를 for문으로 돌려서 출력한다.
+'''
+def fibo(n):
+    if n < 2:
+        return n
+    a = 0
+    b = 1
+    for i in range(n - 1):
+        a = b
+        b = a + b
+    return b
 
 
-# 주소록 구현
+for n in range(1, 101):
+    print(n, fibo(n))
+'''
+'''
+sum = []
+firstNum = 0
+secondNum = 0
+numberFirstList = []
+numberSecondList = []
+for i in range(1, 101):
+    numberFirstList.append(i)
+    firstNum += numberFirstList.index(i)
+for j in range(0, 100):
+    numberSecondList.append(j)
+    secondNum += numberSecondList.index(j)
+sum = firstNum + secondNum
+'''
+
+'''
+    firstNum = numberList.index(i)  # 첫번째 숫자가 나오면, 그 뒤의 
+    secondNum = numberList.index(i)
+    sum = firstNum + secondNum
+    print(firstNum + sum)
+'''
+# 바로 앞의 자리의 수와 더해서 값이 또 나올 수 있도록 구현
+
+# TODO: 주소록 구현
 # [내가한 것]
 '''
 list = []
@@ -452,7 +779,7 @@ for i in range(10):  # 인트형의 변수 i를 1부터 10까지의 길이로 �
     print(str(i + 1) + "번")  # 인트형의 변수 i를 string 형태로 바꾸어서 출력한다. 주의해야할 사항은 길이는 항상 0부터 카운터가 된다는 점이다.
 '''
 
-# 2020년 11월 3일
+# TODO : [복습] 2020년 11월 2일 - while 문
 
 # [과제]
 
