@@ -1,4 +1,5 @@
 # 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
+# 피드백 : 다양하게 많이 해봐야 한다.
 # 최종으로 어떤 프로젝트 진행 할 지 고민해보기.
 # git :
 '''
@@ -13,11 +14,185 @@
 
 # TODO : [복습] 2020년 11월 4일 - list
 # [과제]
+# 1. 전체 복습하기.
+# 1-1. TODO : 피보나치 정렬 복습
+
+
+# 1-2. TODO : 버블정렬, 추가정렬, 선택정렬 알고리즘 복습
+
+
+n = [5, 2, 4, 3, 1, 234, 4, 5, 34, 2, 3, 43,234,54,23,4, 23, 4, 1]  # 리스트 선언 해줌
+print("bubbling sort")
+for i in range(0, len(n) - 1):  # 0부터 리스트 n의 길이 까지 반복,
+    for j in range(0, len(n) - 1 - i):  # 0부터 리스트 n의 길이 - i 번 까지 반복, 횟수 만큼
+        if n[j] > n[j + 1]:
+            # 스왑하는 부분
+            tmp = n[j]
+            n[j] = n[j + 1]
+            n[j + 1] = tmp
+print(n)
+
+print("inserting sort")
+
+for i in range(i, len(n)):  # for 문으로 리스트의 길이만큼 반복시작. [자기 자릴 찾을 값의 위치]
+    tmp = n[i]  # 리스트의 맨 첫째 자리를 tmp 변수에 저장한다. [i 위치의 값이 지워지지 않게 tmp 옮겨놓음]
+    j = i - 1  # [j는 i의 앞 위치로 i값의 위치를 찾기위해 비교할 대상의 위치를 선언해 준다.]
+    while j >= 0 and n[j] > tmp:  # []
+        n[j + 1] = n[j]  # [j 위치의 값을 뒤로 한칸 이동]
+        j -= 1  # [j를 한칸 앞으로 이동]
+    j += 1
+    n[j] = tmp
+print(n)
+
+for selectNum in range(0, len(n) - 1):  # 리스트의 크기 만큼 반복해준다.
+    minNum = selectNum  # 리스트의 첫번째 값을 minNum 변수에 넣어서 임시 저장해준다.
+    for nextNum in range(selectNum + 1, len(n)):  # selectNum 의 반복문보다 1칸 뒤의 값을 시작점으로해서 리스트의 마지막
+        if n[nextNum] < n[minNum]:
+            minNum = nextNum
+        n[selectNum], n[minNum] = n[minNum], n[selectNum]
+print(n)
+
+print("selecting sort")
+for i in range(0, len(n) - 1):  # i : 정렬할 위치 마지막 부분은 비교할 필요가 없으니까 뺴줌.
+    min = i  # min : 최소값의 위치. 초기값으로 i 값 할당
+    for j in range(i + 1, len(n)):  # j: 최소값을 찾기 위해 한칸씩 위치 이동할 인덱스로 사용 첫번째 부분은 비교할 필요가 없으니까 뒤로 밀어줌.
+        if n[min] > n[j]:  # min 위치의 값, 즉 최소 값보다 더 작은 값을 만나면(j 번째 방에서)
+            min = j  # 최소값의 위치를 j로 변경. 이동작을 j가 리스트 끝 까지 도달할 때까지 반복
+    if min != i:  # min = i 이 부분에  min에 값을 할당 했기 떄문에 min이 이동이하지 않았다면 i에 최소 값이 있는 경우
+        tmp = n[min]  # 위 경우에는 자리 바꿀 필요없음
+        n[min] = n[i]  # 그런데 min과 i가 같지 않다면 min이 최소값이 있는 위치로 이동한 것이고 그 최소값이 i 위치의
+        n[i] = tmp  # 값으로 들어가야 함 그러므로 min과 i가 같이 않으면 두 위치의 값을 swap 해준다.
+print(n)
+
+# 1-3. TODO : 탐색, 2진 탐색, 2차원 리스트 추가 복습
+# 2. 아래 등수대로 출력 되도록 만들어오기.
+'''
+data = [[], [], []]
+title = ["name ", "number ", "kor ", "cng ", "math ", "total ", "avg "]
+for i in range(0, len(data)):  # data 리스트 길이 만큼 반복.
+    for count in range(0, 5):  # 입력
+        d = input(title[count] + ": ")  # 입력 받은 변수 d를 data에 넣는다
+        if count != 0:  # 입력받은 값이 String 이 아니면,
+            d = int(d)  # 정수로 변환
+        data[i].append(d)
+    data[i].append(data[i][2] + data[i][3] + data[i][4])
+    data[i].append(data[i][5] / 3)
+for i in title:
+    print(i, end='\t')
+print()
+
+for i in data:
+    for j in i:
+        print(j, end="\t\t")
+    print()
+'''
 # [수업]
 # list 관련
 
 # [5교시]
+# 3명 학생의 이름, 번호, 국, 영, 수, 점수를 입력받아 총점, 평균을 출력하시오.
+# [내가 한 것]
+'''
+inputName = input("이름을 입력하세요:")
+inputNum = input("번호을 입력하세요:")
+inputScore1 = input("국어 점수를 입력하세요:")
+inputScore2 = input("영어 점수를 입력하세요:")
+inputScore3 = input("수학 점수를 입력하세요:")
+
+a = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+for i in range(0, len(a)):
+    a[0][0] = inputName
+    a[0][1] = inputNum
+    a[0][2] = inputScore1
+    a[0][3] = inputScore2
+    a[0][4] = inputScore3
+
+print(a)
+'''
+'''
+for i in range(0, 3):
+    a = []
+    for j in range(0, 5):
+        a.append(inputName)
+        a.append(inputNum)
+        a.append(inputScore1)
+        a.append(inputScore2)
+        a.append(inputScore3)
+    print(a)
+'''
+
+# [강사님께서 구현한 것]
+# TODO : [복습][이해]
+'''
+data = [[], [], []]
+title = ["name ", "number ", "kor ", "cng ", "math ", "total ", "avg "]
+for i in range(0, len(data)): # data 리스트 길이 만큼 반복.
+    for count in range(0, 5): # 입력
+        d = input(title[count]+": ") # 입력 받은 변수 d를 data에 넣는다
+        if count != 0: # 입력받은 값이 String 이 아니면, 
+            d = int(d) #정수로 변환
+        data[i].append(d)
+    data[i].append(data[i][2]+data[i][3]+data[i][4])
+    data[i].append(data[i][5]/3)
+for i in title:
+    print(i, end='\t')
+print()
+
+for i in data:
+    for j in i:
+        print(j, end="\t\t")
+    print()
+'''
+# 내가 한 것
+'''
+a = [[0] * 3] * 2
+#123456 넣기
+for i in a:
+    num = 0
+    for j in i:
+        num += 1
+        j += num
+        print(a[j])
+    i += 1
+print(a)
+'''
+
+# 강사님 께서 한 것
+'''
+a = [[0, 0, 0], [0, 0, 0]]
+
+for i in range(0, 2):
+    for j in range(0, 3):
+        a[i][j] = i * 3 + j + 1
+print(a)
+'''
+# 2차원 리스트
+'''
+a = [[1, 2, 3], [4, 5, 6]]
+
+for i in a:
+    for j in i:
+        print(j,end=" ")
+    print()
+print(a[0][0]) # 큰 > 작 순서로 검색됨
+print(a[1][2])
+
+print()
+# 리스트는 요소의 타입에 제한이 없다. 정수 문자열 리스트 객체... 다 저장이 된다.
+# 리스트 안에 리스트
+a = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"]],
+     [["asdfc", "casdf", "casdf"], ["casdf", "casdf", "casdf"], ["casdf", "casdf", "casd"]]]
+
+for i in a:  # 반복문 i 를 a에 넣어준다.
+    for j in i:  # 반복문 j를 i에 넣어준다.
+        for z in j:
+            print(z, end=" ")
+        print()
+    print()
+print(a[0][1][0])
+'''
 # 2진 탐색
+'''
 print("강사님께서 구현한 코드")
 list = [5, 2, 4, 3, 1, 234, 23, 4, 1, 234, 2345, 234, 234, 23, 42, 34, 23, 41, 23, 1, 423, 5, 234, 23, 423, 412, 3, 15,
         325, 3, 6, 3456]  # 리스트 선언 해줌
@@ -51,7 +226,7 @@ while First <= Last:  # 시작위치와 끝위치가 역전되지 않는 한 반
         break
 if First > Last:
     print("번호 못 찾음")
-
+'''
 # 탐색
 # [내가 구현한 내용]
 '''
@@ -409,27 +584,7 @@ def fibo(n):
 for n in range(1, 101):
     print(n, fibo(n))
 '''
-'''
-sum = []
-firstNum = 0
-secondNum = 0
-numberFirstList = []
-numberSecondList = []
-for i in range(1, 101):
-    numberFirstList.append(i)
-    firstNum += numberFirstList.index(i)
-for j in range(0, 100):
-    numberSecondList.append(j)
-    secondNum += numberSecondList.index(j)
-sum = firstNum + secondNum
-'''
 
-'''
-    firstNum = numberList.index(i)  # 첫번째 숫자가 나오면, 그 뒤의 
-    secondNum = numberList.index(i)
-    sum = firstNum + secondNum
-    print(firstNum + sum)
-'''
 # 바로 앞의 자리의 수와 더해서 값이 또 나올 수 있도록 구현
 
 # TODO: 주소록 구현
