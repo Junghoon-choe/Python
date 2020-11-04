@@ -15,7 +15,70 @@
 # [과제]
 # [수업]
 # list 관련
-# [3교시]
+
+# [5교시]
+# 2진 탐색
+print("강사님께서 구현한 코드")
+list = [5, 2, 4, 3, 1, 234, 23, 4, 1, 234, 2345, 234, 234, 23, 42, 34, 23, 41, 23, 1, 423, 5, 234, 23, 423, 412, 3, 15,
+        325, 3, 6, 3456]  # 리스트 선언 해줌
+for i in range(0, len(list) - 1):  # i : 정렬할 위치 마지막 부분은 비교할 필요가 없으니까 뺴줌.
+    min = i  # min : 최소값의 위치. 초기값으로 i 값 할당
+    for j in range(i + 1, len(list)):  # j: 최소값을 찾기 위해 한칸씩 위치 이동할 인덱스로 사용 첫번째 부분은 비교할 필요가 없으니까 뒤로 밀어줌.
+        if list[min] > list[j]:  # min 위치의 값, 즉 최소 값보다 더 작은 값을 만나면(j 번째 방에서)
+            min = j  # 최소값의 위치를 j로 변경. 이동작을 j가 리스트 끝 까지 도달할 때까지 반복
+    if min != i:  # min = i 이 부분에  min에 값을 할당 했기 떄문에 min이 이동이하지 않았다면 i에 최소 값이 있는 경우
+        tmp = list[min]  # 위 경우에는 자리 바꿀 필요없음
+        list[min] = list[i]  # 그런데 min과 i가 같지 않다면 min이 최소값이 있는 위치로 이동한 것이고 그 최소값이 i 위치의
+        list[i] = tmp  # 값으로 들어가야 함 그러므로 min과 i가 같이 않으면 두 위치의 값을 swap 해준다.
+print(list)
+searchNum = int(input("찾을 숫자 :"))
+# 리스트의 길이를 2로 나눠서 중간 지점을 정해주고 3개의 케이스로 나눈다 같거나 작거나 크거나
+# 첫번쨰가 마지막과 같거나거나 작을때 까지 while문을 돌려줌,, 라스트를 옮겨옴. 첫번째를 뒤로 옮겨감.
+First = 0  # f: 리스트 검색 시작위치
+Last = len(list) - 1  # -1을 하는 정확한 이유 알아보기. 배열 맨 끝방을 찾기위해 -1 을 한것.  0~9 인 경우는 길이. 합은 10이니까 9를 입력해주기 위해서 -1 을 해준것.
+
+while First <= Last:  # 시작위치와 끝위치가 역전되지 않는 한 반복 시켜줌, 만약 아닐경우 반복문을 빠져나옴.
+    m = (First + Last) // 2  # //은 소수점까지 없애준다. # 리스트 중간 위치 찾기.
+    print("First 위치 :", First)
+    print("Last 위치 :", Last)
+    print("위치 추적:", m)
+    if list[m] > searchNum:  # list에 선언된 m이 검색한 숫자보다 더 클경우, 즉 검색된 숫자가 m보다 작을경우
+        Last = m - 1  # last를 m보다 앞의 요소를 가르키게 만든다.
+    elif list[m] < searchNum:  # 검색한 숫자가 m보다 클 경우,
+        First = m + 1  # First를 m의 한자리 뒤를 가르킬수 있도록 한다.
+    else:
+        print("번호 찾음: [", m, "](인덱스 번호)")  # middle 값이 해당 요소에 오게되면 멈춤.
+        break
+if First > Last:
+    print("번호 못 찾음")
+
+# 탐색
+# [내가 구현한 내용]
+'''
+n = [6, 3, 6, 7, 4, 4, 3, 5, 6, 2]
+print(n)
+searchNum = int(input("찾을 숫자 :"))
+# 입력 받은 숫자가 for 문 돌면서 몇번 인덱스에 있는지 알아보기.
+for i in range(0, len(n)):  # 리스트의 0번 부터 찾는다.
+    if searchNum == n[i]:  # n[i] 리스트안에 for문을 돌림. n[]이 안에 for 문인 i 을 넣음.
+        print("인덱스 번호 :", i)
+        # print(n[i])
+# TODO : 중복 번호가 다 찾아지면 안나올 수 있도록,
+if searchNum != n[i]:
+    print("번호 없음")
+'''
+# [강사님께서 구현한 내용]
+'''
+searchNum = int(input("찾을 숫자 :"))
+for i in range(0, len(n)):
+    if searchNum == n[i]:
+        print(i, "번쨰 방에 있음")
+        break  # 루프를 빠져나옴
+if searchNum != n[i]:
+    print("내용 없음")
+'''
+
+# [3~4교시]
 '''
 n = list()  # 리스트를 변수에 넣어서 초기화 해주는 방식. [추가해주면서 만드는 방식]
 for i in range(0, 10):
@@ -76,18 +139,41 @@ for i in range(i, len(n)):  # for 문으로 리스트의 길이만큼 반복시�
 print(n)
 # TODO : 보드판에 써 가면서 이해 연습하기.
 '''
+'''
 print("-----------------------")
 # 선택정렬은 리스트 안에 있는 모든 값들을 비교해서 가장 작은 값을 가장 맨앞으로 넣어줌.
 print("selecting sort")
-
-list = [5, 2, 4, 3, 1, 234, 23, 4, 1]
-for selectNum in range(0, len(list) - 1):
-    minNum = selectNum
-    for nextNum in range(selectNum + 1, len(list)):
+print("강사님께서 구현한 코드")
+list = [5, 2, 4, 3, 1, 234, 23, 4, 1]  # 리스트 선언 해줌
+for i in range(0, len(list) - 1):  # i : 정렬할 위치 마지막 부분은 비교할 필요가 없으니까 뺴줌.
+    min = i  # min : 최소값의 위치. 초기값으로 i 값 할당
+    for j in range(i + 1, len(list)):  # j: 최소값을 찾기 위해 한칸씩 위치 이동할 인덱스로 사용 첫번째 부분은 비교할 필요가 없으니까 뒤로 밀어줌.
+        if list[min] > list[j]:  # min 위치의 값, 즉 최소 값보다 더 작은 값을 만나면(j 번째 방에서)
+            min = j  # 최소값의 위치를 j로 변경. 이동작을 j가 리스트 끝 까지 도달할 때까지 반복
+    if min != i:  # min = i 이 부분에  min에 값을 할당 했기 떄문에 min이 이동이하지 않았다면 i에 최소 값이 있는 경우
+        tmp = list[min]  # 위 경우에는 자리 바꿀 필요없음
+        list[min] = list[i]  # 그런데 min과 i가 같지 않다면 min이 최소값이 있는 위치로 이동한 것이고 그 최소값이 i 위치의
+        list[i] = tmp  # 값으로 들어가야 함 그러므로 min과 i가 같이 않으면 두 위치의 값을 swap 해준다.
+print(list)
+'''
+'''
+print("참고 자료")
+list = [5, 2, 4, 3, 1, 234, 23, 4, 1]  # 리스트 선언 해줌
+for selectNum in range(0, len(list) - 1):  # 리스트의 크기 만큼 반복해준다.
+    minNum = selectNum  # 리스트의 첫번째 값을 minNum 변수에 넣어서 임시 저장해준다.
+    for nextNum in range(selectNum + 1, len(list)):  # selectNum 의 반복문보다 1칸 뒤의 값을 시작점으로해서 리스트의 마지막
         if list[nextNum] < list[minNum]:
             minNum = nextNum
         list[selectNum], list[minNum] = list[minNum], list[selectNum]
 print(list)
+'''
+
+# TODO: 연습하기.
+'''
+for i in range(0, len(list) - 1):  # i 에 정렬할 위치를 선언해준다.
+    min = i
+    for j in range(i + 1, len(list)):  # 최소값을 찾기위해 한칸씩 위치 이동할 인덱스로 사용된다.
+'''
 
 # 참조 : https://www.daleseo.com/sort-insertion/
 '''
