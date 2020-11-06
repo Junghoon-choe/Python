@@ -8,6 +8,8 @@ prompt = """
 7. 종료
 Enter number :
 """
+
+
 def add():
     name = input("이름 :")
     phoneNum = int(input("전화번호 :"))
@@ -15,6 +17,7 @@ def add():
 
     userInfo = [name, phoneNum, address]
     userList.append(userInfo)
+
 
 def search():
     # 2진 탐색 방법
@@ -26,6 +29,7 @@ def search():
             return
         else:
             print("정보 없음")
+
 
 def edit():
     searchName = input("이름:")
@@ -45,6 +49,7 @@ def edit():
         else:
             print("정보 없음")
 
+
 def remove():
     searchName = input("이름:")
     for i in range(0, len(userList)):
@@ -62,10 +67,12 @@ def remove():
         else:
             print("정보 없음")
 
+
 def removeAll():
     quest = input("전체삭제 하시겠습니까? [예, 아니오] :")
     if quest == "예":
         userList.clear()
+
 
 userList = []
 number = 0
