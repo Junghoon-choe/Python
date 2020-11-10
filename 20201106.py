@@ -1,4 +1,5 @@
 import sys
+import os
 
 # 네모네모로직 알아보기.
 # 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
@@ -14,13 +15,90 @@ import sys
  git push -f origin master
 '''
 
-
 # TODO : 2020년 00월 00일
 # [과제]
 # [수업]
 
 # TODO : 2020년 11월 09일
 # [과제]
+# 메모장 만들기. 프로그램시작하면 하위에 메모디렉토리를 생성한다.
+
+
+prompt = """1. 파일 읽기
+2. 파일 쓰기
+3. 파일 삭제
+4. 파일 전체 삭제
+5. 종료"""
+
+
+# 1. 읽기 (읽고 싶은 파일을 선택 할 수 있게 구현하기.)
+def readFile():
+    print("파일 읽기!")
+
+
+# 2. 쓰기 (파일명을 입력받는데, 중복이 되면 안됨. 중복이되면 다시 입력 할 수 있게끔,
+# 또는 새로쓰게하거나, 이어쓰거나)
+# 무한루프로 계속 파일 작성 할 수 있게 구현하기. /exit > 종료 > 저장
+def writeFile():
+    # os.chdir("../")
+    # new_dir = input("생성할 디렉토리 이름을 입력하세요 :")
+    # while True:
+    #     if os.path.isdir(new_dir) == True:
+    #         print("이미 중복되는 디렉토리가 있습니다.")
+    #
+    #     elif os.path.isdir(new_dir) == False:
+    #         os.mkdir(new_dir)  # 디렉토리 생성하는 메서드
+    #         break
+
+    print("파일 쓰기!")
+    arr = []
+    file_name = input("파일 명:")
+    while True:
+        string = input("(작성 완료 하려면 /exit 입력!) :")
+        if string == "/exit":
+            break
+        arr.append(string + '\n')
+    print(arr)
+    file = open(file_name, "w")
+    file.writelines(arr)
+    file.close()
+
+
+# 3. 삭제 () (파일 목록 > 삭제 > 파일 선택 > 파일 삭제)
+def removeFile():
+    print("파일 삭제!")
+
+
+# 4. clear (메모 전체 삭제)
+def removeFileAll():
+    print("파일 전체 삭제!")
+
+
+# 5. 종료
+def exit():
+    print("종료!")
+    sys.exit(0)
+
+
+os.chdir("파일")  # 디렉토리를 바꿔줌
+print("현재 :", os.getcwd())
+# 리스트에 파일들을 담놓고 컨트롤 할 수 있다.
+
+while True:
+
+    print(prompt)
+    number = int(input("숫자 입력 :"))
+    if number == 1:
+        readFile()
+    elif number == 2:
+        writeFile()
+    elif number == 3:
+        removeFile()
+    elif number == 4:
+        removeFileAll()
+    elif number == 5:
+        exit()
+
 # [수업]
 
 
@@ -47,6 +125,357 @@ import sys
 
 # 추가 참고 : https://lancoding.tistory.com/29?category=743320
 
+# 파일제어함수들
+# truncate(size) - size 크기로 파일 절삭
+# rename(old,new) - 파일명을 old에서 new로 변경
+# remove(파일명) - 파일 삭제.
+
+# r+ : 읽고 쓰기모드 . r특징 가지고있음. 없는 파일 열면 에러
+# w+ : 읽고 쓰기모드 . w특징 가지고있음. 없는 파일 열면 새로생성하여 오픈 (기존 내용 지움.)
+# a+ : 읽고 쓰기모드 . a특징 가지고있음. 기존 내용 있으면 이어쓰기.
+
+
+'''
+def main():
+    print("현재 작업 디렉토리 :", os.getcwd())
+    print()
+
+    new_dir = input("생성할 디렉토리 이름을 입력하시오 :")
+    print(new_dir, "존재하나요?", os.path.isdir(new_dir))  # 존재 유무확인.
+    os.mkdir(new_dir)
+    print(new_dir, "디렉토리 생성!")
+    print(new_dir, "존재하나요?", os.path.isdir(new_dir))
+    print()
+
+    os.chdir(new_dir)
+    print(new_dir, "로 디렉토리 이동~!")
+    print("현재 작업 디렉토리!:", os.getcwd())
+
+    list1 = ["a.txt", "b.txt", "c.txt"]
+    for file_name in list1:
+        file = open(file_name, "w")
+        print(file_name, "파일 생성~! 내용으로 파일명 작성!")
+        file.write(file_name)
+        file.close()
+    print()
+
+    os.chdir("../")
+    print("상위 디렉토리로 이동~!")
+    print("현재 작업 디렉토리! :", os.getcwd())
+
+    files = os.listdir(new_dir)
+    print(new_dir, "디렉토리의 파일 목록")
+
+    for file_name in files:
+        file = open(new_dir + "/" + file_name, "r")
+        print(file_name, "(content :", file.read(), ")")
+        file.close()
+    for file_name in files:
+        print(new_dir + "/" + file_name, "파일삭제!")
+        os.remove(new_dir + "/" + file_name)
+
+    print(new_dir, "디렉토리의 파일 목록")
+    print(os.listdir(new_dir))
+    print()
+
+    print(new_dir, "디렉토리 삭제")
+    os.rmdir(new_dir)
+    print(new_dir, "존재하나요?", os.path.isdir(new_dir))
+
+
+main()
+'''
+# 디렉토리 제어 (메모장 만들때 필요함)
+# 경로에는 절대 경로와 상대 경로가 있다.
+# 절대 경로 = /User/~~
+# 상대 경로 = ../상위 폴더를 표시해준다. . 은 현재위치 .. 은 상위 디렉토리
+"""
+import os
+os.getcwd() #현재 작업 디렉토리 명 반환
+os.chdir(path) # 작업 디렉토리는 path로 변경
+os.mkdir(path) # 폴더 만들때 사용하면됨 디렉토리 생성 없을때 맨처음 한번만 실행. 
+os.rmdir(path) # 디렉토리 삭제
+os.listdir(path) # 그 디렉토리안에 파일 이름들을 반환해준다. (리스트에 담아서) 디렉토리 파일 목록 리스트로 반환
+os.path.isfile(path) # path의 파일이 존재하면 True, 아니면 False >> 중복확인할때 사용한다. 이어쓸건지 or 새로 파일 명 입력 받을지 
+os.path.isdir(path) # path의 디렉토리가 존재하면 True, 아니면 False 
+"""
+
+'''
+import os
+
+
+def main():
+    file = open("rem.txt", "w+")
+    file.write("hello mate")
+    file.seek(0)
+    print(file.read())
+    file.close()
+
+    os.remove("rem.txt")
+
+    file = open("rem.txt", "r")  # 파일이 없기 때문에 여기서 에러 발생
+    print(file.read())
+    file.close()
+
+
+main()
+'''
+# 파일명 수정 테스트
+'''
+import os
+
+def main():
+    old_name = input("이름을 수정할 파일명을 입력하세요:")
+    new_name = input("새 파일명을 입력하세요:")
+
+    os.rename(old_name, new_name)
+
+    file = open(new_name, "r")
+    print(file.read())
+    file.close()
+main()
+'''
+# 파일크기 자르기 테스트
+'''
+def main():
+    string = "123456789012345667890"
+    file = open("f.txt", "w")
+    file.write(string)
+    file.truncate(10)  # 파일의 크기를 10으로 절삭해줌.
+    file.close()
+
+    file = open("f.txt", "r")
+    print(file.read())
+    file.close()
+main()
+'''
+# 다른 파일에 복사하기. (숫자 거꾸로 입력 되게)
+'''
+f = open("btest.txt", 'rb')
+f_copy = open("btest1.txt", 'w')
+
+for i in range(1, len(f.read()) + 1):
+    f.seek(-i, 2)
+    #f.read(1).decode()
+    ch = str(f.read(1)).split("\'")[1]  # b값 바이너리 값을 없애기 위해서 split 사용
+    print(ch, end="")
+    f_copy.write(ch)
+
+f.close()
+# f_copy.close()
+'''
+
+# asdfasdf
+# seek(3,0) == f부터 읽음
+# seek(-1,1) == d부터 읽음
+# seek(-4,2) == m부터 읽음 2는 - 음수로 정의해야함.
+"""
+def main2():
+    f = open('btest.txt', 'w')
+    str1 = '1234567890'
+    f.write(str1)
+    f.close()
+
+    print(str1)
+    f = open('btest.txt', 'rb')  # 위치 제어하려면 바이너리 모드로 오픈해야함
+    print(f.read(3))
+    print("현재 위치:", f.tell())
+
+    f.seek(5)
+    print("현재 위치:", f.tell())
+    print("맨 앞에서 5위치의 문자 :", f.read(1))
+
+    f.seek(10, 0)
+    print("현재 위치:", f.tell())
+    print("맨앞에서 10 위치의 문자", f.read(1))
+
+    f.seek(3, 1)
+    print("현재 위치:", f.tell())
+    print("현재 위치에서 -3위치의 문자:", f.read(1))
+
+    f.seek(-3, 2)
+    print("현재 위치:", f.tell())
+    print("맨뒤에서-3위치의 문자:", f.read(1))
+
+    f.close()
+
+
+main2()
+"""
+# 바이너리 읽고 쓰기
+# 모드 : "rb" - 읽기 / "wb" - 쓰기 / "ab" - 이어쓰기
+# 강사님 꼐서 구현한 것
+# 파일 복사 하기.
+'''
+img1 = open('dami.jpeg', 'rb')
+img2 = open('dami2.jpeg', 'wb')
+
+data = img1.read()
+img2.write(data)
+
+img1.close()
+img2.close()
+'''
+# 내가 한 것
+'''
+def main():
+    f = open("dami.jpeg", "rb")  # 바이너리 읽기 모드로 오픈
+    b_data = f.read()
+    print("바이너리 데이터")
+    print(b_data)
+    f.close()
+
+    f = open("dami.jpeg","wb")
+    f.write(b_data)
+    f.close()
+main()
+'''
+
+# 리스트 이용해서 한번에 써서 저장하기.
+'''
+def main3():
+    arr = []
+    while True:
+        str1 = input('str(끝내려면 /exit입력):')
+        if str1 == "/exit":
+            break
+        arr.append(str1 + "\n")
+    print(arr)
+    f = open('b.txt', 'w') # 리스트나 튜플에 저장된 여러 라인을 한번에 써준다.
+    f.close()
+
+
+main3()
+'''
+# 스플릿메서드
+# 복사파일 만들때 효과적임.
+'''
+s = "aaa,vvv,bbb,ddd,ccc,eee,fff,rrr,aaa,sss,ddd,fff"
+s2 = s.split(",")
+print(s2)
+for i in s2:
+    print(i)
+'''
+
+# 문제
+# 파일을 쓰기모드로 오픈해서 키보드로 입력받은 애용을 파일에 저장하시오.
+# 파일 이름도 입력 받을 것.
+# /stop을 입력받을때 까지 반복하고 /stop 입력받으면 저장하고 빠져나옴
+# 빠져나오면 파일 내용을 읽어줘서 콘솔에 출력해준다.
+# 강사님께서 구현한 코드
+'''
+file_name = input("file name:")
+file = open(file_name, "a", encoding="utf-8") # 파일 쓰기모드 오픈 : ocreate(파일 있으면 그 파일 열고 없으면 새로 생성)
+# and otruncate(기존 쓰던 파일을 오픈하면 기존 내용을 모두 지움)
+# attend모드는 계속 이어서 쓰게됨. 모드를 "a"로 바꿔주면됨.
+while True:
+    msg = input("입력 :")
+    if msg == "/stop":
+        break
+    else:
+        file.write(msg+"\n")
+file.close()
+
+file = open(file_name,"r",encoding="utf-8")
+msg = file.read()
+print(msg)
+
+file.close()
+'''
+# 내가 구현한 코드
+'''
+def write():다
+    file = open("testText.txt", "w", encoding="utf-8")
+
+    while True:
+        message = input("입력 내용 :")
+        if message == "/stop":
+            f = open("testText.txt", "r", encoding="utf-8")
+            str1 = f.read()
+            print(str1)
+            f.close()
+
+            break
+write()
+'''
+
+'''
+def main():
+    f = open("a", "r", encoding="utf-8")
+    str1 = f.read()
+    print(str1)
+    f.close()
+
+
+main()
+
+
+def main2():
+    f = open("a", "r")
+    while True:
+        str1 = f.read(3)  # 3개씩만 읽어줌.
+        if str1 == "":
+            break
+        print(str1)
+    f.close()
+
+
+main2()
+
+
+def main3():
+    f = open("a", "r")
+    while True:
+        str1 = f.readline()  # 한번씩 띄어쓰기 해줌.
+        if str1 == "":
+            break
+        print(str1)
+    f.close()
+
+
+main3()
+
+
+def main4():
+    with open("a", "r") as f:
+        str1 = f.read()
+        print(str1)
+
+
+main4()
+'''
+# 원본파일명과 타깃 파일명을 입력받아 복사하는 프로그램을 만드시오.
+# 강사님 코드
+'''
+f1_name = input("원본 파일명:")
+f2_name = input("복사 파일명:")
+
+f1 = open(f1_name, 'r', encoding="utf-8")
+f2 = open(f1_name, 'w', encoding="utf-8")
+
+body = f1.read()
+f2.write(body)
+
+f1.close()
+f2.close()
+'''
+'''def write():
+    file = open("test.txt", "w", encoding="utf-8")
+    message = input("안녕")
+    file.write(message)
+    file.close()
+
+
+def read():
+    file = open("test.txt", "r", encoding="utf-8")
+    content = file.read()
+    print(content)
+    file.close()
+
+write()
+read()'''
+
+'''
 def read():
     f = open("a", "r", encoding="utf-8")  # open함수로 먼저 파일을 오픈해준다. 파일 이름, r = 이름
     str1 = f.read()
@@ -72,7 +501,7 @@ def readB():
 
 write()
 readB()
-
+'''
 # 딕셔너리를 사용해서 3명의 성적표를 만들어라.
 # 강사님께서 구현한 코드
 # 3명 성적
@@ -212,7 +641,6 @@ dictionary => 키와 값 저장. d["name"] = "aaa"
 # API란? : Application Programing Interface - "(응용 프로그램 프로그래밍 인터페이스)는
 # 응용 프로그램에서 사용할 수 있도록, 운영 체제나 프로그래밍 언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스를 뜻한다.”
 
-
 '''정처리 = {
     1: {
         '1번': "설명~",
@@ -259,7 +687,6 @@ Manager 으로 로그인 하면
 """
 
 # TODO : Test 구현
-
 
 prompt = """1. 문제 추가
 2. 문제 수정
@@ -370,7 +797,6 @@ while True:
 #     print(i)
 #     list.append(i+1)
 #     print(list)
-
 
 # List[0] = 1
 # List[1] = 2
