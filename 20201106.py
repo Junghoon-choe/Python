@@ -1,57 +1,191 @@
 import sys
 import os
 
-# 네모네모로직 알아보기.
-# 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
-# 피드백 : 다양하게 많이 해봐야 한다. 코딩테스트를 잘 봐야 인정 받음.
-# 최종으로 어떤 프로젝트 진행 할 지 고민해보기.
-# Vo Dto = valueObject, DataTranceObject
-# Service = 기능을 제공해주는 클래스 (추가, 수정, 삭제, 등등......)
-# Dao = database access object 데이터접근객체
-# functools.wraps, 변수 데코레이터
-# MVC 패턴이란 ? = 모델 뷰 컨트롤를 의미한다. 모델 = 데이터 비즈니스로직, 뷰 = UI, 컨트롤 = 제어하는 부분을 말한다.
-# MVC 이점 : 조립할 수 있다.
-# Plsql 할줄 알아야한다.
-# 참고 사이트 : https://lancoding.tistory.com/
 
 
-# git :
 '''
  git add -A
  git commit -m "수정 한 내용"
  git push -f origin master
 '''
 
+answer = []
+# 맨마지막 숫자만 출력해주는 코드
+os.chdir("./문제파일")
+print("현재 :", os.getcwd())
+for i in range(20):
+
+    f = open("{}번.txt".format(i), 'rb')
+
+    f.seek(-1, 2)
+    ch = str(f.read(1)).split("\'")[1]  # b값 바이너리 값을 없애기 위해서 split 사용
+    # print(ch[0])
+    answer.append(ch[0])
+print(answer)
+f.close()
+
+
+"""
+f = open("btest.txt", 'r')
+s = f.readlines()
+print(s[-1])
+# s[2].truncate(1)
+"""
 
 # TODO : 2020년 00월 00일
 # [과제]
 # [수업]
 
 
-# 맨마지막 숫자만 출력해주는 코드
+# TODO : 2020년 11월 12일
+# [과제]
+# [수업]
+
+# 객체지향 프로그래밍
+# 객체를 정의하고 객체와 객체사이의 관계를 명시한다.
+# 위에서 말하는 관계는 {포함(has a), 상속(is a)}
+
+# 간단한 게임 구현
+
+# TODO : 중요 복습하면서 이해할것! 내것으로 만들기
+'''
+# 좌표 1개를 담을 클래스
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def printXY(self):
+        print(self.x, self.y)
+
+
+# 도형 삼각형 사각형 원 등에 상속해주기 위한 클래스 이다.
+# 좌표를 갖는다. 그리는 동작을 수행한다.
+class Shape:  # 상속을 목적으로 만든 클래스
+    def __init__(self):  # p:좌표 3개르 담은 리스트
+        self.points = []  # 포함관계
+        self.name = ""
+
+    def draw(self):
+        print(self.name, "을 그림")
+
+
+class Triangle(Shape):  # 상속관계
+    def __init__(self, p):
+        super().__init__()
+        self.name = "삼각형"
+        for j in p:
+            self.points.append(j)
+
+    # 부모 클래스로부터 상속받은 현재 클래스에 적합하게 고쳐씀 : 메서드 오버라이딩, 메서드 재정의
+    def draw(self):
+        super().draw()  # 재정의 한 메서드의 옛 버전
+        print()
+        for p in self.points:
+            p.printXY()
+
+
+# 사각형 클래스
+class Rectangle(Shape):
+    def __init__(self, p):  # p: 좌표2 개를 담은 리스트
+        super().__init__()
+        self.name = "사각형"
+        for j in p:
+            self.points.append(j)
+
+    def draw(self):
+
+        for p in self.points:
+            p.printXY()
+
+
+# 원 클래스
+
+class Circle(Shape):
+    def __init__(self, p, r):  # p = 좌표1개 r = 반지름
+        super().__init__()
+        self.name = "원"
+        self.points.append(p)
+        self.r = r
+
+    # 부모 클래스로부터 상속받은 현재 클래스에 적합하게 고쳐씀 : 메서드 오버라이딩, 메서드 재정의
+    def draw(self):
+
+        print('중심점 :')
+        self.points[0].printXY()
+        print('반지름 :', self.r)
+        for p in self.points:
+            p.printXY()
+
+
+def main():
+    s = Shape()
+    s.draw()  # 부모의 draw()를 호출
+    t = Triangle([Point(1, 2), Point(1, 2), Point(1, 2)])
+    t.draw()  # 자식에서 재정의한 draw호출
+    r = Rectangle([Point(10, 20), Point(30, 40)])
+    r.draw()  # 자식에서 재정의한 draw호출
+    c = Circle(Point(100, 200), 150)
+    c.draw()  # 자식에서 재정의한 draw호출
+
+
+main()
+'''
+# 상속
 """
-f = open("btest.txt", 'rb')
-f_copy = open("btest1.txt", 'w')
+class Parent:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+        print("부모 생성자")
 
-f.seek(-1, 2)
-ch = str(f.read(1)).split("\'")[1]  # b값 바이너리 값을 없애기 위해서 split 사용
-print(ch[0])
-f.close()
+    def setData(self, x, y):
+        self.x = x
+        self.y = y
+
+    def parentMethod(self):
+        print("부모메서드")
+
+    def printXY(self):
+        print(self.x, self.y)
+
+
+# 하위 클래스 자식클래스
+class Child(Parent):
+    def __init__(self):  # 부모클래스의 생성자를 호출한다. super(): 상속관계에서 부모객체 참조값 반환
+        super().__init__()  #
+        # z까지 값을 넣어서 사용 한다
+        self.z = 0
+        print("자식 생성자")
+
+    # 메서드 재 정의 : (필요) 상속받은 메서드를 고쳐서 사용한다
+    def setZ(self, z):
+        self.z = z
+
+    def printZ(self):
+        print(self.z)
+
+    def childMethod(self):
+        print("자식 메서드")
+
+
+def main():
+    p = Parent()
+    p.setData(1, 2)
+    p.printXY()
+    p.parentMethod()
+
+    c = Child()  # 멤버 변수 x,y,z에 데이터 셋 한다.
+    c.setData(10, 20)
+    c.setZ(30)
+    c.printXY()
+    c.printZ()
+    c.parentMethod()  # 부모의 메서드도 사용 할 수 있다.
+    c.childMethod()
+
+
+main()
 """
-
-
-f = open("btest.txt", 'r')
-s = f.readlines()
-print(s[-1])
-# s[2].truncate(1)
-
-
-
-
-
-
-
-
 # TODO : 2020년 11월 11일
 # [과제]
 # [수업]
