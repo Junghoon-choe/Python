@@ -3,10 +3,17 @@ import os
 
 # 네모네모로직 알아보기.
 # 피드백 : 코드를 봤을때 직관적으로 볼 수 있게 만들기. 예를 들면, dan과 같이 알아볼 수 있도록 하기.
-# 피드백 : 다양하게 많이 해봐야 한다.
+# 피드백 : 다양하게 많이 해봐야 한다. 코딩테스트를 잘 봐야 인정 받음.
 # 최종으로 어떤 프로젝트 진행 할 지 고민해보기.
+# Vo Dto = valueObject, DataTranceObject
+# Service = 기능을 제공해주는 클래스 (추가, 수정, 삭제, 등등......)
+# Dao = database access object 데이터접근객체
 # functools.wraps, 변수 데코레이터
+# MVC 패턴이란 ? = 모델 뷰 컨트롤를 의미한다. 모델 = 데이터 비즈니스로직, 뷰 = UI, 컨트롤 = 제어하는 부분을 말한다.
+# MVC 이점 : 조립할 수 있다.
+# Plsql 할줄 알아야한다.
 # 참고 사이트 : https://lancoding.tistory.com/
+
 
 # git :
 '''
@@ -15,21 +22,603 @@ import os
  git push -f origin master
 '''
 
+
 # TODO : 2020년 00월 00일
 # [과제]
 # [수업]
 
+
+# 맨마지막 숫자만 출력해주는 코드
+"""
+f = open("btest.txt", 'rb')
+f_copy = open("btest1.txt", 'w')
+
+f.seek(-1, 2)
+ch = str(f.read(1)).split("\'")[1]  # b값 바이너리 값을 없애기 위해서 split 사용
+print(ch[0])
+f.close()
+"""
+
+
+f = open("btest.txt", 'r')
+s = f.readlines()
+print(s[-1])
+# s[2].truncate(1)
+
+
+
+
+
+
+
+
+# TODO : 2020년 11월 11일
+# [과제]
+# [수업]
+
+# 클래스 :
+# 캡슐화(VO) - 하나의 객체 표현
+# DAO - 디비작업 전담 클래스 : 저장소에 저장, 검색, 수정, 삭제...
+# SERVICE - 비즈니스 로직. 사용자에게 제공하는 기능 정의, 메서드는 사용자의 기능을 구행하는데 필요한 값을 입력받고, DAO를 사용해 저장소에 저장, 수정, 삭제를 완료
+# 메뉴클래스 (UI) - 메뉴 돌림
+# main - 메뉴 실행
+
+# TODO : 잘 이해하기. class 의 로직.
+'''
+class Test:
+    def __init__(self, x, y):
+        self.x = x  # public : 클래스 밖에서 잘 보임.
+        self.__y = y  # private : 클래스 밖에서 안 보임.
+        # 멤버변수는 항상 private으로 해줘야 한다.
+        # 기능 호출하는 변수는 외부에서 변경할 수 있도록 public으로 제어한다.
+
+    def printXY(self):
+        print("x:", self.x, "y:", self.__y)
+
+
+    # setter : private 멤버를 외부에서 수정, 값을 넣을(set) 수 있게 하는 메서드
+    # setter 만드는법
+    def setY(self, y):
+        self.__y = y
+
+    # getter : private 멤버를 외부에서 값을 읽을 (get) 수 있게 하는 메서드
+    def getY(self):
+        return self.__y
+
+
+def main():
+    t1 = Test(10, 20)
+    t1.printXY()
+
+    print("t1.x:", t1.x)
+    t1.setY(300)
+    print("t1.y:",t1.getY())
+
+
+main()
+'''
+'''
+class Test:
+    x = 0  # 클래스 변수 자바의 static 변수와 비슷하다, (객체 소속이 아니라 클래스 소속이다.)
+
+    # 모든 객체가 공유. 클래스이름. 변수명
+    def __init__(self):
+        self.y = 0  # 맴버 변수. 객체마다 생성되는 변수, 객체이름.변수명
+        z = 0  # 지역변수 이 함수가 끝나면 없어진다.
+
+    # 정적변수도 있지면 정적메서드도 있다.
+    @staticmethod  # 언더 테이션 (@는 컴파일러에게 알려주는 역할을 한다.)
+    def printNum(r):  # 클래스 메서드. 멤버변수 사용없고, 정적메서드는 self가 없다.
+        print('정적 메서드')
+        PI = 3.14
+        w = r * r * PI
+        print('원의 넓이 :', w)
+
+
+def main():
+    Test.printNum(5) # << 5를 넣어줌.
+    t1 = Test()
+    Test.x += 1
+    t1.y += 1
+    print('x:', Test.x, ', y:', t1.y)
+
+    t2 = Test()
+    Test.x += 1
+    t2.y += 1
+    print('x:', Test.x, ', y:', t2.y)
+
+    t3 = Test()
+    Test.x += 1
+    t3.y += 1
+    print('x:', Test.x, ', y:', t3.y)
+
+
+main()
+'''
+
+'''
+f = open("btest.txt", 'rb')
+f_copy = open("btest1.txt", 'w')
+
+for i in range(1, len(f.read()) + 1):
+    f.seek(-i, 2)
+    #f.read(1).decode()
+    ch = str(f.read(1)).split("\'")[1]  # b값 바이너리 값을 없애기 위해서 split 사용
+    print(ch, end="")
+    f_copy.write(ch)
+
+f.close()
+# f_copy.close()
+'''
+
+# TODO : 2020년 11월 10일
+# [과제]
+# [수업]
+
+# 문제
+
+# Product :
+#   [제품번호, 제품명, 가격, 수량]
+# 추가 검색(번호로 검색) 수정(번호로 검색) 삭제(번호로 검색) 전체목록
+
+"""
+class Product:
+    def __init__(self, number, name, price, amount):
+        self.number = number
+        self.name = name
+        self.price = price
+        self.amount = amount
+
+
+class Dao:
+    def __init__(self):
+        self.datas = []  # DB 역할을 함.
+
+    def insert(self, s):
+        self.datas.append(s)
+        print("")
+
+    def search(self, number):
+        for i in range(len(self.datas)):
+            if self.datas[i] == number:
+                return print(i)
+            else:
+                print("\n정보 없음\n")
+
+    def edit(self, number):
+        for i in range(len(self.datas)):
+            data = self.datas[i][1]
+            if data == number:
+                return i
+            else:
+                print("\n정보 없음\n")
+
+    def remove(self, number):
+        for i in range(len(self.datas)):
+            data = self.datas[i][1]
+            if data == number:
+                return i
+            else:
+                print("\n정보 없음\n")
+
+    def selectAll(self):
+        return self.datas
+
+
+class Service:  # UI
+    def __init__(self):
+        self.dao = Dao()
+
+    def addProduct(self):  # 학생 정보 하나를 추가.
+        number = int(input("제품 번호 :"))
+        name = input("제품 명 :")
+        amount = int(input("제품 수량 :"))
+        price = int(input("제품 가격 :"))
+
+        s = Product(number, name, amount, price)
+        self.dao.insert(s)
+
+    def searchProduct(self):  # 번호로 제품 검색
+        number = int(input("검색할 제품 번호 :"))
+        self.dao.search(number)
+
+    def editProduct(self):
+        number = int(input("수정할 제품 번호 :"))
+        self.dao.edit(number)
+
+    def removeProduct(self):
+        number = int(input("삭제할 제품 번호 :"))
+        self.dao.remove(number)
+
+    def printAll(self):
+        all = self.dao.selectAll()
+        for i in all:
+            i.printInfo()
+
+"""
+prompt = """1. 추가
+2. 검색(번호로 검색)
+3. 수정(번호로 검색)
+4. 삭제(번호로 검색)
+5. 전체목록
+6. 종료"""
+"""
+
+def main():
+    service = Service()
+    while True:
+        print(prompt)
+        number = int(input("숫자 입력 :"))
+        if number == 1:
+            service.addProduct()
+            print()
+        elif number == 2:
+            service.searchProduct()
+            print()
+        elif number == 3:
+            service.editProduct()
+            print()
+        elif number == 4:
+            service.removeProduct()
+            print()
+        elif number == 5:
+            service.printAll()
+            print()
+        elif number == 6:
+            sys.exit(0)
+        else:
+            print("다시 입력하세요.")
+
+
+main()
+"""
+# 좌표를 담을 클래스
+'''
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def printPoint(self):
+        print('(', self.x, ',', self.y, ')')
+
+
+def main():
+    points = [Point(1, 2), Point(3, 4), Point(5, 6)]  # 저장.
+    for i in points:
+        i.printPoint()
+
+
+main()
+'''
+# 성적처리 프로그램 (클래스 사용)
+# [강사님께서 구현하신 코드]
+# - MVC 패턴 -
+"""
+class Student:  # 한 학생의 정보 및 성적처리하는 클래스
+    def __init__(self, name, number, kor, eng, math):
+        self.name = name
+        self.number = number
+        self.kor = kor
+        self.eng = eng
+        self.math = math
+
+    def calculrator(self):
+        self.total = self.kor + self.eng + self.math
+        self.avg = self.total / 3
+
+    def printInfo(self):
+        print("name :", self.name)
+        print("number :", self.number)
+        print("kor :", self.kor)
+        print("eng :", self.eng)
+        print("math :", self.math)
+        print("total :", self.total)
+        print("avg :", self.avg)
+        print("---------------------")
+
+
+class Dao:  # 데이터를 저장하는 역할. 저장소에 추가, 검색, 수정, 삭제 등의 작업 수행
+    def __init__(self):
+        self.datas = []  # DB역할을 함.
+
+    def insert(self, sum):
+        self.datas.append(sum)
+
+    def selectAll(self):
+        return self.datas
+
+
+class Service:  # 비지니스 로직 사람들에게 기능 제공할 서비스.
+    def __init__(self):
+        self.dao = Dao()
+
+    def addStudent(self): # 학생 정보 하나를 추가.
+        name = input("이름 :")
+        number = int(input("번호 :"))
+        kor = int(input("국어 :"))
+        eng = int(input("영어 :"))
+        math = int(input("수학 :"))
+        s = Student(name, number, kor, eng, math)
+        s.calculrator()
+        self.dao.insert(s)
+
+    def printAll(self):
+        all = self.dao.selectAll()
+        for i in all:
+            i.printInfo()
+
+
+def main():
+    service = Service()
+    service.addStudent()
+    service.addStudent()
+    service.addStudent()
+    service.printAll()
+
+
+main()
+"""
+# 클래스를 사용하는 이유 캡슐화
+# 객체 : 프로그램으로 모델링 할때 구성 요소들 (사람,사물,개념)
+# 클래스는 사용자가 직접 정의하는 타입
+# 변수를 만들려면 먼저 타입 정의
+'''
+userList = []
+class Member:
+    def setData(self, name, tel):
+        self.name = name
+        self.tel = tel
+
+    def print(self):
+        print(self.name)
+        print(self.tel)
+
+prompt ="""1. 추가
+2. 전체보기
+3. 종료"""
+'''"""
+def main():
+    m1 = Member()
+    while True:
+        print(prompt)
+        number=int(input("입력할 숫자 :"))
+        if number == 1:
+            name = input("이름 :")
+            tel = input("번호 :")
+            memberList = [name, tel]
+            userList.append(memberList)
+            
+        
+    
+    
+    
+    
+
+    m1.setData(name, tel)
+
+    print("m1.name :", m1.name)
+    print("m1.tel :", m1.tel)
+    print(userList)
+    print()
+
+
+    m1.print()"""
+
+'''
+def main():
+    m1 = Member()
+    m1.setData('aaa','111')
+    m1.print()
+    print()
+
+    m2 = Member()
+    m2.setData('bbb', '222')
+    m2.print()
+    print()
+
+    m3 = m1 # 객체의 얕은 복사 , 참조값 복사
+    print("변경전 m3 :",end=" ")
+    m3.print()
+    m1.name="!!!"
+    print("변경후 m3 :", end=" ")
+    m3.print()
+    print("변경후 m1 :", end=" ")
+    m1.print()
+
+main()
+'''
+'''
+class Student:
+    number = 1
+    StudentList = []
+    name = "최정훈"
+    kor = 10
+    eng = 20
+    math = 30
+    def write(s,name,kor,eng,math):
+        s.name = input("이름 :")
+        s.kor = int(input("국어 :"))
+        s.eng = int(input("영어 :"))
+        s.math = int(input("수학 :"))
+    
+def main():
+    s = Student()
+    print(s.number, s.name, s.kor, s.eng, s.math)
+main()'''
+
+# 클래스는 맴버 변수와 메서드로 구성된다
+# 맴버 변수 : 객체 안의 변수
+# 사람의 정보 - 이름 나이 3명
+# 맴버 변수 : 객체안의 변수
+# 메서드 : 클래스 안에 정의한 함수 첫 파라메터는 항상 self(객체 자신) 호출할 때 이 파라메터는 전달 안함
+'''
+class Person:  # 클래스 안에 있으면 메서드로 말함.
+    def __init__(self, name, age):  # 생성자, 함수, 객체 생성시 호출되는 함수, 객체 초기화
+        self.name = name  # self.name >> 맴버 변수 self가 없으면 지역변수이다.
+        self.age = age
+
+    def printPerson(self):  # 메서드
+        print("이름 :", self.name)
+        print("나이 :", self.age)
+
+
+def func1():
+    print("asdfghqwe")
+
+
+def main():  # 밖에 있으면 함수.
+    p1 = Person("최정훈", 20)
+    print("name :", p1.name) # 개별적으로 불러옴.
+    print("name :", p1.age)
+    print()
+    print(p1)
+    p1.printPerson()
+    print()
+    p1 = Person("aaa", 111)  # 클래스로 변수 생서 => 객체
+    p1.printPerson()
+    p2 = Person("bbb", 222)
+    p2.printPerson()
+    p3 = Person("ccc", 333)
+    p3.printPerson()
+
+
+main()
+'''
+# 클래스 정의와 객체 생성
+'''
+#test Class
+class Student:
+
+    cnt = 0 # 클래스 변수
+
+    def setVal1(s,val): # 첫 번재 파라메터는 self(현재 객체)
+        s.num = val # 객체 멤버변수 정의
+    def setVal2(s,val):
+        s.name = val
+    def printVal(s):
+        print(s.num)
+        print(s.name)
+
+def main():
+    s1 = Student()
+    print(s1.cnt)
+    s1.setVal1(12)
+    s1.setVal2('aaa')
+    s1.printVal()
+main()
+'''
+# raise : 예외 객체를 던짐
+# 사용자 정의 예외 클래스
+'''
+class MyError(Exception):  # Exception 은 파이썬에서 모든 예외의 조상 클래스 이다.
+    def __init__(self, msg):  # 생성자. 객체 생성시 한번 호출되는 함수로 객체를 초기화한다.
+        # self 는 자바에서 this와 같은 역할을 한다.
+        self.msg = msg # self.msg는 맴버벼수, 파라메터는 현재 함수가 종료하면 없어지지만 
+        # 멤버변수는 객체가 살아있는 한 계속 존재한다 
+
+def printNum():
+    num = int(input('num (1~5 사이만 입력 :)'))
+
+    if num < 1 or num > 5:
+        raise MyError("잘못된 값")  # 예외 발생 시킨다.
+
+    print("input value :", num)
+
+
+def main():
+    try:
+        printNum()
+    except MyError as e:
+        print("예외발생", e)
+
+
+while True:
+    main()
+'''
+# 예외처리 예제
+'''
+a = 5
+b = 0
+c = [1, 2, 3]
+d = {"name": "aaa", "age": 12}
+print("0으로 나누기 전")
+try:  # 예외가 발생할 만한 코드를 묶는다.
+    print("try블록 시작")
+    print(a / b)
+    print("0으로 나눈 뒤")
+    c[5] = 10
+    print(d["tel"])
+    print("c[5]=10")
+    '''
+'''
+except ZeroDivisionError:  # 예외 처리 블록 발생한 예외 이름이 같아야 받는다
+print("예외 발생")
+
+except (ZeroDivisionError, IndexError, KeyError) as e:  # 한꺼번에 처리가능
+    print("예외발생 :", e)
+
+print()
+
+try:
+    print("c[5]=10")
+    c[5] = 10
+    print("위에서 중단되면 여기는 출력 안됨")
+except Exception as e:  # 예외 처리 블록 발생한 예외 이름이 같아야 받는다 또는 이와같이 처리하면 모든 예외 객체를 받아서 처리할 수 있다.
+    print("모든 예외 처리")
+    print(type(e))
+
+else:
+    print("예외 발생하지 않음")
+finally:  # 프로그램이 끝나기 전에 무조건실행되는 블록
+    print("예외가 발생했던 안했던 무조건 실행되는 블록")
+print("위에서 중단되면 여기는 출력 안됨")
+'''
+# 예외처리
+# try :
+# 예외가 발생 할 만한 코드
+# except 예외명 :
+# try 블록에서 발생한 예외 중 동일한 이름의 예외만 받아서 처리
+# else
+# try 블록에서 예외가 발생하지 않았을 때 실행될 코드 구현
+# finally
+# 정상종료, 비정상종료 모두 종료 되기전 실행되는 블록
+
+# 리스트 - 변경가능 요소도 변경가능 가장 많이 사용됨
+# 셋 - 변경가능 , 요소변경 안됨
+# 튜플 - 변경안됨. 요소변경 가능 리스트를 요소로 지정 우회적으로 요소추가가능
+# 딕셔너리 키와값을 맵핑해서 저장 키를 통해서 빠른 검색을 지원 웹과 연결 시 파라메터 전달 활용
+
+# <입출력>
+# 표준입력 : sys.stdin (키보드로 읽는 함수 제공)
+# 표준출력 : sys.stdout (콘솔에 출력하는 함수 제공)
+# 표준에러 : sys.stderr (콘솔에 표준 에러 메시지 출력하는 함수 제공)
+
+# <표준 입출력을 쉽게 할 수 있는 함수>
+# input()
+# print()
+# <파일 입출력>
+# open("파일경로","오픈모드") - 파일 오픈으로
+# 오픈 모드 - r/w/a rb/wb/ab  r+/w+/a+ 읽고쓰기
+# TODO : 모드마다 차이점 정확히 이해하기.
+
+# f= open("파일경로","오픈모드") - 파일 오픈으로
+# f.read() - 파일 읽기
+# f.write() - 파일 쓰기
+# f.close() - 파일 닫기
+# f.seek() - 커서 위치를 변경
+# f.tell() - 현재 위치 반환
+
+
 # TODO : 2020년 11월 09일
 # [과제]
 # 메모장 만들기. 프로그램시작하면 하위에 메모디렉토리를 생성한다.
-
-
 prompt = """1. 파일 읽기
 2. 파일 쓰기
 3. 파일 삭제
 4. 파일 전체 삭제
 5. 종료"""
-
+'''
 
 # 1. 읽기 (읽고 싶은 파일을 선택 할 수 있게 구현하기.)
 def readFile():
@@ -98,7 +687,7 @@ while True:
         removeFileAll()
     elif number == 5:
         exit()
-
+'''
 # [수업]
 
 
